@@ -25,7 +25,8 @@ def init():
 
 def generate_image(address):
     logging.info(f"Generating image for address: {address}")
-    geolocator = Nominatim(user_agent="geoapiExercises")
+    #geolocator = Nominatim(user_agent="geoapiExercises")
+    geolocator = Nominatim(user_agent="maxhager28@gmail.com")
     location = geolocator.geocode(address)
     m = leafmap.Map(center=[location.latitude, location.longitude], zoom=19)
     m.add_basemap("SATELLITE")
