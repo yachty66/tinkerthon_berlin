@@ -9,20 +9,22 @@ def get_lat_long(address):
     location = geolocator.geocode(address)
     m = leafmap.Map(center=[location.latitude, location.longitude], zoom=19)
     m.add_basemap("SATELLITE")
-    #m
-    return m
-    #return location.latitude, location.longitude
-
+    return m, location
 
 address = "Schönhauser Allee 143"
-lat, long = get_lat_long(address)
-print(lat, long)
-
-
+m, location = get_lat_long(address)
+if m.user_roi_bounds() is not None:
+    bbox = m.user_roi_bounds()
+else:
+    # Adjust the bbox coordinates using location.latitude and location.longitude
+    bbox = [location.longitude - 0.0024, location.latitude - 0.0008, location.longitude + 0.002, location.latitude + 0.0013]
+image = "satellite.tif"
+tms_to_geotiff(output=image, bbox=bbox, zoom=20, source="Satellite", overwrite=True)
+#get_basemaps().keys()
+#get_basemaps().keys()
 #get map image zoomed out by factor x  
 """def get_map_image(lat, long, zoom):
     pass
-
 
 #input model into SAM and get back a segmented image
 def get_segmented_image(image):
