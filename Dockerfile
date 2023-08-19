@@ -3,13 +3,16 @@ FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
 WORKDIR /
 
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
+RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0
 
 # Install git and wget
 RUN apt-get update && apt-get install -y git wget
 
 # Upgrade pip
 RUN pip install --upgrade pip
+
+# Install segment-geospatial and geopy
+RUN pip install segment-geospatial geopy
 
 ADD requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
